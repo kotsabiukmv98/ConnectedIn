@@ -110,11 +110,28 @@ const scrape = async (options) => {
                             console.error(error.message);
                         });
 
+                    const isModal = await page.$eval('#artdeco-modal-outlet div', modal => false)
+                        .catch(error => {
+                            console.error(error.message);
+                            return true;
+                        });
+
+                    console.log(`Modal window appeared -> ${isModal}`);
+                    
+                    await new Promise((r) => setTimeout(r, 1200));
+                    
+                    if (isModal) {
+                        throw new Error('Can not add any more people to network');
+                    }
+
+
                     console.log(`${count} ${personName} added to network`);
                     count++;
-                    await new Promise((r) => setTimeout(r, 500));
                 }
             }
+        })
+        .catch(error => {
+            console.error(error.message);
         });
 
     await browser.close()
