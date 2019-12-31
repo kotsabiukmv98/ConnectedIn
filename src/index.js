@@ -1,25 +1,14 @@
-import http from 'http';
-import { cube, foo, graph } from './config.js/index.js';
+require("babel-core/register");
+require("babel-polyfill");
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello Kolia\n');
-}).listen(1337, '127.0.0.1');
+import scrape from './scrape';
+import config from './config';
+(async () => {
+  console.log("App started!");
 
-console.log('Server running at http://127.0.0.1:1337/');
-
-(() => {
-  graph.options = {
-      color:'blue',
-      thickness:'3px'
-  };
-   
-  graph.draw();
-  console.log(cube(3)); // 27
-  console.log(foo);    // 4.555806215962888
-  
+  await scrape({
+    uri: "https://www.linkedin.com/mynetwork/",
+    cookie: config.linkedIn.token,
+  });
 
 })();
-
-
-export default server;
