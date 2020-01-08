@@ -1,5 +1,5 @@
 const SUGGESTION_GROUP_SELECTOR = '.mn-cohort-view.mn-cohort-view__grid-wrapper.ember-view';
-const PEOPLE_CARD_SELECTOR = '.discover-entity-card.discover-entity-card--calc-width.ember-view';
+const PEOPLE_CARD_SELECTOR = '.discover-entity-card.ember-view';
 const GROUP_NAME_SELECTOR = '.mn-cohort-view__grid-heading h2';
 const PERSON_NAME_SELECTOR = '.discover-person-card__name';
 const CONNECT_BUTTON_SELECTOR = "button[data-control-name='people_connect']";
@@ -21,8 +21,9 @@ const options = {
 
 const scrape = async (options) => {
     options.setCookie.value = options.cookie || options.setCookie.value;
-    options.log('Scraping started with options: %j', options);
+    options.log('Scraping started!');
 
+    // const browser = await puppeteer.launch(options.launch)
     const browser = await puppeteer.connect({browserWSEndpoint: 'wss://chrome.browserless.io/'})
         .then(browser => {
             options.log('Browser created');
