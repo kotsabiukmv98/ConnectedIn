@@ -1,25 +1,44 @@
 const { Scrape } = require("./scrape");
+const cheerio = require("cheerio");
+const SEARCH_RESULT_LIST = ".search-results__list";
+const SEARCH_RESULT_ITEM = ".search-result__info";
 
 const peopleScrape = async options => {
   const scraper = new Scrape(options);
   await scraper.createBrowser();
   const page = await scraper.createPage();
-  await scraper.closeBrowser();
 
-  // await page.goto(options.uri, { waitUntil: ["networkidle2"] });
-  // }
+  let pageNumber = 13;
+  do {
+    await page.goto(`${options.uri}&page=${pageNumber}`, {
+      waitUntil: ["networkidle2"]
+    });
+    await page.waitForSelector(SEARCH_RESULT_LIST).catch(error => {
+      console.log(error.message);
+      pageNumber = 0;
+    });
 
-  // page.waitForSelector(SUGGESTION_GROUP_SELECTOR)
-  //     .then(() => {
-  //         options.log(`Got '${SUGGESTION_GROUP_SELECTOR}' selector`);
-  //     }),
+    if (pageNumber === 0) break;
 
-  // await page.$$(SUGGESTION_GROUP_SELECTOR)
-  //     .then(async suggestions => {
-  //         if (!suggestions) {
-  //             options.log(`No suggestions`)
-  //             return;
-  //         }
+    let content = await page.content();
+    let $ = cheerio.load(content);
+
+    $(SEARCH_RESULT_ITEM).map(async function() {
+      const recruiter = {
+        name: $(this)
+          .find(".name.actor-name")
+          .eq(0)
+          .text()
+      };
+
+      console.log(recruiter);
+      await new Promise(resolver => setTimeout(resolver, 2000));
+    });
+    await new Promise(resolver => setTimeout(resolver, 3000));
+    pageNumber++;
+  } while (true);
+
+  await new Promise(resolver => setTimeout(resolver, 10000));
 
   //         options.log(`Got ${suggestions.length || 0} suggestions`)
   //         let groups = new Map();
@@ -88,7 +107,8 @@ const peopleScrape = async options => {
   //     .catch(error => {
   //         options.log(error.message);
   //     });
-  //await new Promise(r => setTimeout(r, 20000));
+
+  await scraper.closeBrowser();
 };
 
 module.exports = options => peopleScrape(options);
