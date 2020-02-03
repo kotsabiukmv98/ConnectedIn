@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "json2csv": "^4.5.4",
     "puppeteer": "^2.0.0"
   },
   "devDependencies": {}
