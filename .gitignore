@@ -93,3 +93,4 @@ obj
 appsettings.json
 local.settings.json
 NetworkExtenderBySuggestions/run.js
+Shared/run.js
