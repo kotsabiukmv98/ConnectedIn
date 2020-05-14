@@ -1,16 +1,17 @@
-const SUGGESTION_GROUP_SELECTOR = '.mn-cohort-view.mn-cohort-view__grid-wrapper.ember-view';
+const puppeteer = require('puppeteer');
+
+const SUGGESTION_GROUP_SELECTOR = '.mn-cohorts-list';
 const PEOPLE_CARD_SELECTOR = '.discover-entity-card.ember-view';
-const GROUP_NAME_SELECTOR = '.mn-cohort-view__grid-heading h2';
+const GROUP_NAME_SELECTOR = '.mn-cohort-view__heading h2';
 const PERSON_NAME_SELECTOR = '.discover-person-card__name';
 const CONNECT_BUTTON_SELECTOR = "button[data-control-name='people_connect']";
 const MODAL_WINDOW_SELECTOR = '#artdeco-modal-outlet div';
-const puppeteer = require('puppeteer');
 
 const options = {
     launch: {
-        headless: true,
+        headless: false,
     },
-    setViewport: { width: 1940, height: 1080 },
+    setViewport: { width: 1280, height: 1000 },
     timeout: 120000,
     setCookie: {
         name: "li_at",
@@ -23,8 +24,7 @@ const scrape = async (options) => {
     options.setCookie.value = options.cookie || options.setCookie.value;
     options.log('Scraping started!');
 
-    // const browser = await puppeteer.launch(options.launch)
-    const browser = await puppeteer.connect({browserWSEndpoint: 'wss://chrome.browserless.io/'})
+    const browser = await puppeteer.launch(options.launch)
         .then(browser => {
             options.log('Browser created');
             return browser;
@@ -123,11 +123,9 @@ const scrape = async (options) => {
 
                     options.log(`Modal window appeared -> ${isModal}`);
 
-
                     if (isModal) {
                         throw new Error('Can not add any more people to network');
                     }
-
 
                     options.log(`${count} ${personName} added to network`);
                     count++;
