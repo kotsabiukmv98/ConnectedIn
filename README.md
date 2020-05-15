@@ -21,7 +21,7 @@ And I was clicking on each **Connect** button to add peoples to the connect list
 ### How to run it?
 
 Clone repo:
-`git vclone https://github.com/mkotsabiuk/ConnectedIn.git`
+`git clone https://github.com/mkotsabiuk/ConnectedIn.git`
 
 Go to the source folder 
 `cd ConnectedIn`
