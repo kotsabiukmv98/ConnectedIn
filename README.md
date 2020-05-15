@@ -109,6 +109,6 @@ Run command
 
 ###### See above how to find **li_at** cookies value using web browser dev tools
 
-*Why do I need this spreadsheet?*
+*Why do I need this spreadsheet?*  
 You can use [phantombuster](https://phantombuster.com/automations/linkedin/2818/linkedin-network-booster) service for automatng adding recruters from  spreadsheet to your network.  
 Actually, it is easy to write the same functionality using [puppeteer](https://github.com/puppeteer/puppeteer) library
