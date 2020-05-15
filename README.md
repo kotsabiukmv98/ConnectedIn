@@ -1,6 +1,6 @@
 # ConnectedIn
 
-NodeJS solution for automated extending network on LinkedIn and collecting recruiters information from top IT companies.
+NodeJS with [puppeteer](https://github.com/puppeteer/puppeteer) solution for automated extending network on LinkedIn and collecting recruiters information from top IT companies.
 
 ## Network extending on [LinkedIn](https://www.linkedin.com) automation
 
@@ -18,15 +18,19 @@ And I was clicking on each **Connect** button to add peoples to the connect list
 
 ### Demo
 
+![](https://github.com/mkotsabiuk/ConnectedIn/blob/demo/Demo/NetworkExtender.gif)
+
 ### How to run it?
 
-Clone repo:
+Install [NodeJS](https://nodejs.org/en/download/)
+
+Clone repo:  
 `git clone https://github.com/mkotsabiuk/ConnectedIn.git`
 
-Go to the source folder 
+Go to the source folder  
 `cd ConnectedIn`
 
-Install dependencies:
+Install dependencies:  
 `npm i`
 
 Add **li_at** cookie value from your LinkedIn account to [run.js](https://github.com/mkotsabiuk/ConnectedIn/blob/master/NetworkExtenderBySuggestions/run.js) file here
@@ -35,10 +39,10 @@ Add **li_at** cookie value from your LinkedIn account to [run.js](https://github
 // process.env["li_at"] = "";
 
 ```
-and commented line out
+and uncomment this line of code OR you can just add an environment variable named **li_at** with cookie value. 
 
-Run command
-`node node NetworkExtenderBySuggestions\run.js`
+Run command  
+`node NetworkExtenderBySuggestions\run.js`
 
 ### FAQ
 
@@ -49,8 +53,10 @@ You can easaly find it in browser dev tools under Application tab. For example G
 
 *Should I always run this script manually?*  
 Not realy. You can easaly use services like [Azure Functions](https://azure.microsoft.com/en-us/services/functions/?&ef_id=Cj0KCQjw2PP1BRCiARIsAEqv-pQ4xcyLvVr7Bm9_55InsFxuG5jHIChWCKNdna8aIpchWr-HJieCzUwaAurZEALw_wcB:G:s&OCID=AID2000594_SEM_Cj0KCQjw2PP1BRCiARIsAEqv-pQ4xcyLvVr7Bm9_55InsFxuG5jHIChWCKNdna8aIpchWr-HJieCzUwaAurZEALw_wcB:G:s&dclid=CjgKEAjw2PP1BRDC2_aEktPaqWcSJAD8LyMbhfZb3XiN1Oa8i-qiSAObSbdPcR8mdkNwLMzKmguNlPD_BwE), AWS Lambda or Cloud Functions on GCP.
+In this case you would like to change in [scrape.js](https://github.com/mkotsabiuk/ConnectedIn/blob/fa7978d797706d90d8a2fdc8e4901036e353eaed/NetworkExtenderBySuggestions/scrape.js#L12) file `headless` property to `true`
+
 Actually, code is written to easy host in on Azure Functions. After I hosted it there I extended my network connections on LinkedIn from 1k to 4k only for few weeks.
-Also, you can create any other way to run sthis script repeatedly.
+Also, you can create any other way to run this script repeatedly.
 
 *Could I add all people from LinkedIn to my network?*  
 Unfortunately NOT! According to LinkedIn's rolls you can have at most 30k connections. In case you would like to add someone more, you will have to remove someone previously.
@@ -67,14 +73,42 @@ You can easily collect a large amount of recruiters information from different c
 
 ### Demo
 
+![](https://github.com/mkotsabiuk/ConnectedIn/blob/demo/Demo/%20RecruitersInformation.gif)
+
 ### How to run it?
 
+Install [NodeJS](https://nodejs.org/en/download/)
 
+Clone repo:  
+`git clone https://github.com/mkotsabiuk/ConnectedIn.git`
+
+Go to the source folder  
+`cd ConnectedIn`
+
+Install dependencies:  
+`npm i`
+
+Add **li_at** cookie value from your LinkedIn account to [run.js](https://github.com/mkotsabiuk/ConnectedIn/blob/master/Shared/run.js) file here
+```
+
+// process.env["li_at"] = "";
+
+```
+and uncomment this line of code OR you can just add an environment variable named **li_at** with cookie value. 
+
+Choose available company name from [CompaniesPages.js](https://github.com/mkotsabiuk/ConnectedIn/blob/demo/Shared/CompaniesPages.js) file (you can also add any other company to the `companies` object) and insert company's name into [run.js](https://github.com/mkotsabiuk/ConnectedIn/blob/3fb446e13fdc849b62fd7413fc03aabe14ccc375/Shared/run.js#L8) file
+
+```
+...
+  uri: companies['<company_name>'],
+...
+```
+
+Run command  
+`node Shared\run.js`
+
+###### See above how to find **li_at** cookies value using web browser dev tools
 
 *Why do I need this spreadsheet?*
 You can use [phantombuster](https://phantombuster.com/automations/linkedin/2818/linkedin-network-booster) service for automatng adding recruters from  spreadsheet to your network.
-
-
-
-### Demo
-
+Actually, it is easy to write the same functionality using [puppeteer](https://github.com/puppeteer/puppeteer) library
