@@ -29,7 +29,7 @@ Go to the source folder
 Install dependencies:
 `npm i`
 
-Add li_at cookie value from your LinkedIn account to [run.js](https://github.com/mkotsabiuk/ConnectedIn/blob/master/NetworkExtenderBySuggestions/run.js) file here
+Add **li_at** cookie value from your LinkedIn account to [run.js](https://github.com/mkotsabiuk/ConnectedIn/blob/master/NetworkExtenderBySuggestions/run.js) file here
 ```
 
 // process.env["li_at"] = "";
@@ -42,7 +42,7 @@ Run command
 
 ### FAQ
 
-*How can I find li_at cookies value?*  
+*How can I find **li_at** cookies value?*  
 You can easaly find it in browser dev tools under Application tab. For example Google Chrome dev tools:
 
 ![](https://github.com/mkotsabiuk/ConnectedIn/blob/demo/Demo/li_at.jpg)
